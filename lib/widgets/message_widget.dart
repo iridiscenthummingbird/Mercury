@@ -13,19 +13,12 @@ class MessageWidget extends StatelessWidget {
 
   Message message;
   final DateFormat formatterTime = DateFormat('kk:mm');
-<<<<<<< HEAD
   TextMessage? textMessage;
-=======
->>>>>>> bac210d128b62c17cd84f98460b50365614b80dc
 
   @override
   Widget build(BuildContext context) {
     if (message is TextMessage) {
-<<<<<<< HEAD
       textMessage = message as TextMessage;
-=======
-      message = message as TextMessage;
->>>>>>> bac210d128b62c17cd84f98460b50365614b80dc
       return Container(
         width: 350,
         child: Row(
@@ -66,11 +59,7 @@ class MessageWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-<<<<<<< HEAD
                         textMessage!.text,
-=======
-                        message.text,
->>>>>>> bac210d128b62c17cd84f98460b50365614b80dc
                         style: TextStyle(
                           color: message.isMine
                               ? AppColors.userText
@@ -114,11 +103,7 @@ class MessageWidget extends StatelessWidget {
         ),
       );
     } else {
-<<<<<<< HEAD
       return const SizedBox();
-=======
-      return SizedBox();
->>>>>>> bac210d128b62c17cd84f98460b50365614b80dc
     }
   }
 }
