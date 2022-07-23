@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "99334390807",
+    "project_id": "mercury-1bddd",
+    "storage_bucket": "mercury-1bddd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99334390807:android:b88729fcc7a976bdee4852",
+        "android_client_info": {
+          "package_name": "com.example.mercury"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99334390807-51rapd2hd82ahe6pj93iai4roeabdq1t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5Gm_9QK1mzZTExeZwhmT5V8w0EdZs_u4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99334390807-51rapd2hd82ahe6pj93iai4roeabdq1t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
