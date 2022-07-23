@@ -53,8 +53,8 @@ class FireStoreManagerImpl implements FireStoreManager {
   @override
   Stream<QuerySnapshot<Object?>> listenChats(String userId) {
     final Stream<QuerySnapshot> chatsStream = chatsCollection
-        //.where('participantsIdList', arrayContains: userId)
-        //.orderBy('updateTime', descending: true)
+        .where('participantsIdList', arrayContains: userId)
+        .orderBy('updateTime', descending: true)
         .snapshots();
     return chatsStream;
   }
@@ -96,8 +96,17 @@ class FireStoreManagerImpl implements FireStoreManager {
 
   @override
   Future<String> createChat(List<String> participantsIdList, ChatType chatType) async {
+    final List<String> names = [];
+    for (final id in participantsIdList) {
+      final QuerySnapshot<Object?> snapshot = await usersCollection.where('id', isEqualTo: id).get();
+
+      final Map<String, dynamic> data = snapshot.docs[0].data() as Map<String, dynamic>;
+
+      names.add(data['name'] as String);
+    }
     final doc = await chatsCollection.add(
       {
+        'name': names.join(', '),
         'participantsIdList': participantsIdList,
         'chatType': chatTypeMapper.fromEnum(chatType),
         'updateTime': Timestamp.now(),

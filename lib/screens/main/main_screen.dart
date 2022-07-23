@@ -27,9 +27,29 @@ class _MainScreenState extends State<MainScreen> {
     SettingsTab(),
   ];
 
+  String getTitle(BuildContext context) {
+    switch (_selectedIndex) {
+      case 0:
+        return 'Contacts';
+      case 1:
+        return 'Chats';
+      case 2:
+        return 'Settings';
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).iconTheme.color,
+        title: Text(getTitle(context)),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
