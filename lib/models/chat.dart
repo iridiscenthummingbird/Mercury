@@ -1,10 +1,9 @@
-import 'package:mercury/models/user.dart';
 import 'package:mercury/utils/enums.dart';
 
 class Chat {
   final String id;
   final ChatType chatType;
-  final List<User> participants;
+  final List<String> participants;
   final DateTime updateTime;
 
   Chat({

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mercury/managers/auth_manager.dart';
 import 'package:mercury/managers/firestore_manager.dart';
 import 'package:mercury/managers/shared_preference_manager_impl.dart';
+import 'package:mercury/repositories/chat_repository.dart';
+import 'package:mercury/repositories/message_repository.dart';
 import 'package:mercury/repositories/user_repository.dart';
 
 class DI extends StatelessWidget {
@@ -30,6 +32,19 @@ class DI extends StatelessWidget {
           create: (context) => UserRepositoryImpl(
             authManager: context.read<AuthManager>(),
             sharedPreferenceManager: context.read<SharedPreferenceManager>(),
+            fireStoreManager: context.read<FireStoreManager>(),
+          ),
+        ),
+        RepositoryProvider<ChatRepository>(
+          create: (context) => ChatRepositoryImpl(
+            sharedPreferenceManager: context.read<SharedPreferenceManager>(),
+            fireStoreManager: context.read<FireStoreManager>(),
+          ),
+        ),
+        RepositoryProvider<MessageRepository>(
+          create: (context) => MessageRepositoryImpl(
+            sharedPreferenceManager: context.read<SharedPreferenceManager>(),
+            fireStoreManager: context.read<FireStoreManager>(),
           ),
         ),
       ],

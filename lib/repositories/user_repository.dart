@@ -1,5 +1,6 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mercury/managers/auth_manager.dart';
+import 'package:mercury/managers/firestore_manager.dart';
 import 'package:mercury/managers/shared_preference_manager_impl.dart';
 import 'package:mercury/utils/google_login_exeption.dart';
 
@@ -16,10 +17,12 @@ abstract class UserRepository {
 class UserRepositoryImpl extends UserRepository {
   final SharedPreferenceManager sharedPreferenceManager;
   final AuthManager authManager;
+  final FireStoreManager fireStoreManager;
 
   UserRepositoryImpl({
     required this.sharedPreferenceManager,
     required this.authManager,
+    required this.fireStoreManager,
   });
 
   @override
@@ -32,6 +35,8 @@ class UserRepositoryImpl extends UserRepository {
   Future<void> signUp(String email, String password) async {
     final String uid = await authManager.signUp(email, password);
     sharedPreferenceManager.setUid(uid);
+    final String name = email.split('@')[0];
+    await fireStoreManager.addUser(uid, name);
   }
 
   @override
@@ -48,5 +53,7 @@ class UserRepositoryImpl extends UserRepository {
     }
     final String uid = result.id;
     sharedPreferenceManager.setUid(uid);
+    final String name = result.email.split('@')[0];
+    await fireStoreManager.addUser(uid, result.displayName ?? name);
   }
 }
