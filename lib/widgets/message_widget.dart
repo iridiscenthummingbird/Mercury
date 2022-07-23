@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mercury/models/message.dart';
-import 'package:mercury/resourses/app_color.dart';
 
 import 'triangle_clippers.dart';
 
