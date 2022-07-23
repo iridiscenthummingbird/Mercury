@@ -24,13 +24,13 @@ class MessageWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            if (message.isMine)
+            if (!message.isMine)
               ClipPath(
                 clipper: ReversedTriangleClipper(),
                 child: Container(
                   height: 10,
                   width: 10,
-                  color: AppColors.userMessage,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             Expanded(
@@ -39,16 +39,16 @@ class MessageWidget extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(25),
                     topRight: const Radius.circular(25),
-                    bottomLeft: !message.isMine
+                    bottomLeft: message.isMine
                         ? const Radius.circular(25)
                         : Radius.zero,
-                    bottomRight: message.isMine
+                    bottomRight: !message.isMine
                         ? const Radius.circular(25)
                         : Radius.zero,
                   ),
-                  color: message.isMine
-                      ? AppColors.userMessage
-                      : AppColors.otherMessage,
+                  color: !message.isMine
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).cardColor,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -61,9 +61,7 @@ class MessageWidget extends StatelessWidget {
                       Text(
                         textMessage!.text,
                         style: TextStyle(
-                          color: message.isMine
-                              ? AppColors.userText
-                              : AppColors.otherText,
+                          color: Theme.of(context).primaryColorDark,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -78,9 +76,9 @@ class MessageWidget extends StatelessWidget {
                           ),
                           Text(
                             formatterTime.format(message.createTime),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.grey,
+                              color: Theme.of(context).primaryColorDark,
                             ),
                           ),
                         ],
@@ -90,20 +88,20 @@ class MessageWidget extends StatelessWidget {
                 ),
               ),
             ),
-            if (!message.isMine)
+            if (message.isMine)
               ClipPath(
                 clipper: TriangleClipper(),
                 child: Container(
                   height: 10,
                   width: 10,
-                  color: AppColors.otherMessage,
+                  color: Theme.of(context).cardColor,
                 ),
               ),
           ],
         ),
       );
     } else {
-      return const SizedBox();
+      return SizedBox();
     }
   }
 }
