@@ -21,3 +21,19 @@ final chatTypeMapper = EnumMapper<ChatType, String>(
     }
   },
 );
+
+final messageTypeMapper = EnumMapper<MessageType, String>(
+  MessageType.values,
+  (type) {
+    switch (type) {
+      case MessageType.text:
+        return 'text';
+      case MessageType.image:
+        return 'image';
+      case MessageType.video:
+        return 'video';
+      default:
+        throw UnimplementedError('tripCharterTypeMapper error');
+    }
+  },
+);
