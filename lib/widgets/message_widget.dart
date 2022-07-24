@@ -6,6 +6,8 @@ import 'package:mercury/models/message.dart';
 
 import 'triangle_clippers.dart';
 
+enum Menu { delete }
+
 class MessageWidget extends StatelessWidget {
   MessageWidget({
     Key? key,
@@ -21,26 +23,34 @@ class MessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     if (message is TextMessage) {
       final TextMessage textMessage = message as TextMessage;
-      return GestureDetector(
-        onLongPress: () async {
-          await delete();
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: message.isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              if (!message.isMine)
-                ClipPath(
-                  clipper: ReversedTriangleClipper(),
-                  child: Container(
-                    height: 10,
-                    width: 10,
-                    color: Theme.of(context).primaryColor,
-                  ),
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: message.isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            if (!message.isMine)
+              ClipPath(
+                clipper: ReversedTriangleClipper(),
+                child: Container(
+                  height: 10,
+                  width: 10,
+                  color: Theme.of(context).primaryColor,
                 ),
-              Container(
+              ),
+            PopupMenuButton(
+              onSelected: (Menu item) async {
+                if (item == Menu.delete) {
+                  await delete();
+                }
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+                const PopupMenuItem<Menu>(
+                  value: Menu.delete,
+                  child: Text('Delete'),
+                ),
+              ],
+              child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(25),
@@ -83,55 +93,61 @@ class MessageWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              if (message.isMine)
-                ClipPath(
-                  clipper: TriangleClipper(),
-                  child: Container(
-                    height: 10,
-                    width: 10,
-                    color: Theme.of(context).cardColor,
-                  ),
+            ),
+            if (message.isMine)
+              ClipPath(
+                clipper: TriangleClipper(),
+                child: Container(
+                  height: 10,
+                  width: 10,
+                  color: Theme.of(context).cardColor,
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       );
     } else if (message is ImageMessage) {
       final ImageMessage imageMessage = message as ImageMessage;
       final storageRef = FirebaseStorage.instance.ref(imageMessage.path);
       final Future<String> url = storageRef.getDownloadURL();
-      return GestureDetector(
-        onLongPress: () async {
-          await storageRef.delete();
-          await delete();
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: message.isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
-            children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 250,
-                ),
-                child: FutureBuilder(
-                  future: url,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return SizedBox(
-                        child: CachedNetworkImage(
-                          imageUrl: snapshot.data as String,
-                          fit: BoxFit.scaleDown,
-                        ),
-                      );
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: message.isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: [
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 250,
               ),
-            ],
-          ),
+              child: FutureBuilder(
+                future: url,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return PopupMenuButton(
+                      onSelected: (Menu item) async {
+                        if (item == Menu.delete) {
+                          await storageRef.delete();
+                          await delete();
+                        }
+                      },
+                      itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+                        const PopupMenuItem<Menu>(
+                          value: Menu.delete,
+                          child: Text('Delete'),
+                        ),
+                      ],
+                      child: CachedNetworkImage(
+                        imageUrl: snapshot.data as String,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+            ),
+          ],
         ),
       );
     } else {
