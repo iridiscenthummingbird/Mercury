@@ -67,17 +67,6 @@ class _ChatScreenState extends State<ChatScreen> {
               isMine: myId == userId,
               messageType: messageType,
             );
-          case MessageType.video:
-            return TextMessage(
-              //TODO: change
-              text: data['text'] as String,
-              id: document.id,
-              chatId: data['chatId'] as String,
-              createTime: (data['createTime'] as Timestamp).toDate(),
-              userId: userId,
-              isMine: myId == userId,
-              messageType: messageType,
-            );
         }
       },
     ).toList();
