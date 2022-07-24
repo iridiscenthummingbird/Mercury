@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mercury/screens/group_chat_creation/group_chat_creation.dart';
 import 'package:mercury/screens/main/tabs/chats/chats_tab.dart';
 import 'package:mercury/screens/main/tabs/contacts/contacts_tab.dart';
 import 'package:mercury/screens/main/tabs/settings/settings_tab.dart';
@@ -49,6 +50,16 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).iconTheme.color,
         title: Text(getTitle(context)),
+        actions: [
+          if (_selectedIndex == 1) ...{
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, GroupChatCreationScreen.routeName);
+              },
+              icon: const Icon(Icons.add),
+            ),
+          },
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
