@@ -26,7 +26,9 @@ class MessageWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            mainAxisAlignment: message.isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+            mainAxisAlignment: message.isMine
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               if (!message.isMine)
@@ -43,10 +45,16 @@ class MessageWidget extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(25),
                     topRight: const Radius.circular(25),
-                    bottomLeft: message.isMine ? const Radius.circular(25) : Radius.zero,
-                    bottomRight: !message.isMine ? const Radius.circular(25) : Radius.zero,
+                    bottomLeft: message.isMine
+                        ? const Radius.circular(25)
+                        : Radius.zero,
+                    bottomRight: !message.isMine
+                        ? const Radius.circular(25)
+                        : Radius.zero,
                   ),
-                  color: !message.isMine ? Theme.of(context).primaryColor : Theme.of(context).cardColor,
+                  color: !message.isMine
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).cardColor,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -60,10 +68,7 @@ class MessageWidget extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 16.0),
                         child: Text(
                           textMessage.text,
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColorDark,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       const SizedBox(
@@ -72,11 +77,9 @@ class MessageWidget extends StatelessWidget {
                       Text(
                         formatterTime.format(message.createTime),
                         textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColorDark,
-                        ),
-                      ),
+                        style: Theme.of(context).textTheme.bodyText2,),
+                        
+                    
                     ],
                   ),
                 ),
