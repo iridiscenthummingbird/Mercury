@@ -4,7 +4,7 @@ import 'package:mercury/models/user.dart';
 import 'package:mercury/utils/enums.dart';
 
 abstract class FireStoreManager {
-  Future<List<User>> getUsers();
+  Future<List<User>> getUsers(String userId);
 
   Future<void> addUser(String id, String name);
 
@@ -29,8 +29,8 @@ class FireStoreManagerImpl implements FireStoreManager {
   CollectionReference chatsCollection = FirebaseFirestore.instance.collection('chats');
 
   @override
-  Future<List<User>> getUsers() async {
-    final QuerySnapshot<Object?> snapshot = await usersCollection.get();
+  Future<List<User>> getUsers(String userId) async {
+    final QuerySnapshot<Object?> snapshot = await usersCollection.where('id', isNotEqualTo: userId).get();
 
     return snapshot.docs.map(
       (item) {

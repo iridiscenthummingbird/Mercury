@@ -13,6 +13,11 @@ Route<dynamic> _generateRoute(RouteSettings settings) {
         settings: settings,
         builder: (BuildContext context) => const LoginScreen(),
       );
+    case GroupChatCreationScreen.routeName:
+      return MaterialPageRoute<dynamic>(
+        settings: settings,
+        builder: (BuildContext context) => const GroupChatCreationScreen(),
+      );
     case ChatScreen.routeName:
       return MaterialPageRoute<dynamic>(
         settings: settings,

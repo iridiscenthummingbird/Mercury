@@ -62,6 +62,6 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   Future<List<User>> getContacts() async {
-    return await fireStoreManager.getUsers();
+    return await fireStoreManager.getUsers(sharedPreferenceManager.getUid());
   }
 }
