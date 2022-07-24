@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mercury/localization/localization.dart';
 import 'package:mercury/repositories/user_repository.dart';
 import 'package:mercury/screens/login/login_screen.dart';
 import 'package:mercury/widgets/theme_switcher.dart';
@@ -22,9 +23,9 @@ class _SettingsTabState extends State<SettingsTab> {
           children: [
             Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text('Dark Theme'),
-                ThemeSwitcher(),
+              children: [
+                Text(AppLocalizations.of(context).mainApp.darkTheme),
+                const ThemeSwitcher(),
               ],
             ),
             TextButton(
@@ -34,12 +35,12 @@ class _SettingsTabState extends State<SettingsTab> {
               },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.logout),
-                  SizedBox(
+                children: [
+                  const Icon(Icons.logout),
+                  const SizedBox(
                     width: 10,
                   ),
-                  Text('Logout'),
+                  Text(AppLocalizations.of(context).mainApp.logout),
                 ],
               ),
             ),
