@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mercury/models/message.dart';
@@ -20,8 +22,8 @@ class MessageWidget extends StatelessWidget {
     if (message is TextMessage) {
       final TextMessage textMessage = message as TextMessage;
       return GestureDetector(
-        onLongPress: () {
-          delete();
+        onLongPress: () async {
+          await delete();
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -90,6 +92,44 @@ class MessageWidget extends StatelessWidget {
                     color: Theme.of(context).cardColor,
                   ),
                 ),
+            ],
+          ),
+        ),
+      );
+    } else if (message is ImageMessage) {
+      final ImageMessage imageMessage = message as ImageMessage;
+      final storageRef = FirebaseStorage.instance.ref(imageMessage.path);
+      final Future<String> url = storageRef.getDownloadURL();
+      return GestureDetector(
+        onLongPress: () async {
+          await storageRef.delete();
+          await delete();
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: message.isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+            children: [
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: 250,
+                ),
+                child: FutureBuilder(
+                  future: url,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SizedBox(
+                        child: CachedNetworkImage(
+                          imageUrl: snapshot.data as String,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
             ],
           ),
         ),

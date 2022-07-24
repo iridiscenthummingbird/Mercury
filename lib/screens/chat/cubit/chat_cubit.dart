@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mercury/models/chat.dart';
 import 'package:mercury/repositories/chat_repository.dart';
 import 'package:mercury/repositories/message_repository.dart';
@@ -38,5 +39,9 @@ class ChatCubit extends Cubit<ChatState> {
 
   Future<void> createChat(String companionId) async {
     emit(ChatCreatedState(await chatRepository.createChat([companionId], ChatType.private)));
+  }
+
+  Future<void> sendImageMessage(XFile xfile, String chatId) async {
+    await messageRepository.sendImageMessage(xfile, chatId);
   }
 }
