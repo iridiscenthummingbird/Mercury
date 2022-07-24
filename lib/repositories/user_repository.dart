@@ -2,6 +2,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mercury/managers/auth_manager.dart';
 import 'package:mercury/managers/firestore_manager.dart';
 import 'package:mercury/managers/shared_preference_manager_impl.dart';
+import 'package:mercury/models/user.dart';
 import 'package:mercury/utils/google_login_exeption.dart';
 
 abstract class UserRepository {
@@ -12,6 +13,8 @@ abstract class UserRepository {
   Future<void> googleSignIn();
 
   Future<void> logout();
+
+  Future<List<User>> getContacts();
 }
 
 class UserRepositoryImpl extends UserRepository {
@@ -55,5 +58,10 @@ class UserRepositoryImpl extends UserRepository {
     sharedPreferenceManager.setUid(uid);
     final String name = result.email.split('@')[0];
     await fireStoreManager.addUser(uid, result.displayName ?? name);
+  }
+
+  @override
+  Future<List<User>> getContacts() async {
+    return await fireStoreManager.getUsers();
   }
 }
