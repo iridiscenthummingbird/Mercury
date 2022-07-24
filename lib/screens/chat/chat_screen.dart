@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mercury/managers/shared_preference_manager_impl.dart';
 import 'package:mercury/models/chat.dart';
 import 'package:mercury/models/message.dart';
@@ -57,9 +58,8 @@ class _ChatScreenState extends State<ChatScreen> {
               messageType: messageType,
             );
           case MessageType.image:
-            return TextMessage(
-              //TODO: change
-              text: data['text'] as String,
+            return ImageMessage(
+              path: data['path'] as String,
               id: document.id,
               chatId: data['chatId'] as String,
               createTime: (data['createTime'] as Timestamp).toDate(),
@@ -141,7 +141,12 @@ class _ChatScreenState extends State<ChatScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                final XFile? xfile = await ImagePicker().pickImage(source: ImageSource.gallery);
+                                if (xfile != null) {
+                                  _cubit.sendImageMessage(xfile, chat.id);
+                                }
+                              },
                               icon: const Icon(
                                 Icons.attach_file,
                               ),

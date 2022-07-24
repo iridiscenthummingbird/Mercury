@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mercury/models/chat.dart';
 import 'package:mercury/models/user.dart';
 import 'package:mercury/utils/enums.dart';
@@ -13,6 +14,8 @@ abstract class FireStoreManager {
   Stream<QuerySnapshot> listenMessages(String chatId);
 
   Future<void> sendTextMessage(String text, String chatId, String userId);
+
+  Future<void> sendImageMessage(String base64, String chatId, String userId);
 
   Future<void> deleteMessage(String id);
 
@@ -161,5 +164,24 @@ class FireStoreManagerImpl implements FireStoreManager {
       updateTime: (data['updateTime'] as Timestamp).toDate(),
       name: data['name'] as String,
     );
+  }
+
+  @override
+  Future<void> sendImageMessage(String base64, String chatId, String userId) async {
+    final storageRef = FirebaseStorage.instance.ref();
+    final String path = 'images/${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final imageRef = storageRef.child(path);
+    imageRef.putString(base64, format: PutStringFormat.base64);
+
+    await messagesCollection.add(
+      {
+        'path': path,
+        'chatId': chatId,
+        'userId': userId,
+        'createTime': Timestamp.now(),
+        'messageType': 'image',
+      },
+    );
+    await chatsCollection.doc(chatId).update({'updateTime': Timestamp.now()});
   }
 }

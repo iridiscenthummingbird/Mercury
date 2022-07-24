@@ -31,3 +31,17 @@ class TextMessage extends Message {
 
   final String text;
 }
+
+class ImageMessage extends Message {
+  ImageMessage({
+    required super.id,
+    required super.chatId,
+    required super.createTime,
+    required super.userId,
+    required super.isMine,
+    required super.messageType,
+    required this.path,
+  });
+
+  final String path;
+}
