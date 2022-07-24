@@ -84,6 +84,9 @@ class _GroupChatCreationScreenState extends State<GroupChatCreationScreen> {
                     child: StatefulBuilder(
                       builder: (context, setState) {
                         return CheckboxListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                           value: checkListValues[index],
                           onChanged: (value) {
                             setState(() {

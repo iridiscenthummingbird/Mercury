@@ -74,19 +74,32 @@ class _ChatsTabState extends State<ChatsTab> {
                   physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   itemCount: chats.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          ChatScreen.routeName,
-                          arguments: ChatScreenSettings(
-                            openChatType: OpenChatType.chatScreen,
-                            chatId: chats[index].id,
+                    return Padding(
+                      padding: const EdgeInsets.all(3),
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        tileColor: Theme.of(context).cardColor,
+                        title: Text(
+                          chats[index].name,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal,
                           ),
-                        );
-                      },
-                      title: Text(chats[index].name),
-                      trailing: Text(formatDate(chats[index].updateTime)),
+                        ),
+                        trailing: Text(formatDate(chats[index].updateTime)),
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            ChatScreen.routeName,
+                            arguments: ChatScreenSettings(
+                              openChatType: OpenChatType.chatScreen,
+                              chatId: chats[index].id,
+                            ),
+                          );
+                        },
+                      ),
                     );
                   },
                 );

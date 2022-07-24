@@ -15,19 +15,36 @@ class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Settigns'),
-          const ThemeSwitcher(),
-          TextButton(
-            onPressed: () {
-              context.read<UserRepository>().logout();
-              Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-            },
-            child: const Text('Logout'),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text('Dark Theme'),
+                ThemeSwitcher(),
+              ],
+            ),
+            TextButton(
+              onPressed: () {
+                context.read<UserRepository>().logout();
+                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.logout),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text('Logout'),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
