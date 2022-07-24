@@ -6,7 +6,7 @@ enum NotesSelection { all, favorite }
 
 enum ChatType { private, group }
 
-enum MessageType { text, image, video }
+enum MessageType { text, image }
 
 final chatTypeMapper = EnumMapper<ChatType, String>(
   ChatType.values,
@@ -30,8 +30,6 @@ final messageTypeMapper = EnumMapper<MessageType, String>(
         return 'text';
       case MessageType.image:
         return 'image';
-      case MessageType.video:
-        return 'video';
       default:
         throw UnimplementedError('tripCharterTypeMapper error');
     }
