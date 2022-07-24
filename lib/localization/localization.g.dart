@@ -8,24 +8,14 @@ part of 'localization.dart';
 
 final localizedLabels = <Locale, AppLocalizationsData>{
   Locale.fromSubtags(languageCode: 'en'): const AppLocalizationsData(
-    mainScreen: const AppLocalizationsDataMainScreen(
-      favorite: 'Favorite',
-      all: 'All',
-      noNotes: 'No notes',
-      darkTheme: 'Dark theme',
-      myNotes: 'My Notes',
+    mainApp: const AppLocalizationsDataMainApp(
+      delete: 'Delete',
+      edit: 'Edit',
+      settings: 'Settings',
+      chats: 'Chats',
+      contacts: 'Contacts',
       logout: 'Logout',
-      text: 'text',
-      mainScreen: 'Main screen',
-    ),
-    noteScreen: const AppLocalizationsDataNoteScreen(
-      no: 'No',
-      yes: 'Yes',
-      doYouWantSave: 'Do you want to save the note?',
-      descriptionRequired: 'Description is required',
-      description: 'Description',
-      title: 'Title',
-      titleRequired: 'Title is required',
+      darkTheme: 'Dark Theme',
     ),
     registrationScreen: const AppLocalizationsDataRegistrationScreen(
       orSignUpWith: 'or sign up with',
@@ -45,24 +35,14 @@ final localizedLabels = <Locale, AppLocalizationsData>{
     ),
   ),
   Locale.fromSubtags(languageCode: 'uk'): const AppLocalizationsData(
-    mainScreen: const AppLocalizationsDataMainScreen(
-      favorite: 'Улюблений',
-      all: 'Все',
-      noNotes: 'Немає нотаток',
-      darkTheme: 'Темна тема',
-      myNotes: 'Мої Нотатки',
+    mainApp: const AppLocalizationsDataMainApp(
+      delete: 'Видалити',
+      edit: 'Редагувати',
+      settings: 'Налаштування',
+      chats: 'Чати',
+      contacts: 'Контакти',
       logout: 'Вийти',
-      text: 'текст',
-      mainScreen: 'Головний екран',
-    ),
-    noteScreen: const AppLocalizationsDataNoteScreen(
-      no: 'Ні',
-      yes: 'Так',
-      doYouWantSave: 'Ви хочете зберегти запис?',
-      descriptionRequired: 'Потрібен опис',
-      description: 'Опис',
-      title: 'Титул',
-      titleRequired: 'Назва потрібна',
+      darkTheme: 'Темна тема',
     ),
     registrationScreen: const AppLocalizationsDataRegistrationScreen(
       orSignUpWith: 'або зареєструватися з',
@@ -85,22 +65,18 @@ final localizedLabels = <Locale, AppLocalizationsData>{
 
 class AppLocalizationsData {
   const AppLocalizationsData({
-    required this.mainScreen,
-    required this.noteScreen,
+    required this.mainApp,
     required this.registrationScreen,
     required this.loginScreen,
   });
 
-  final AppLocalizationsDataMainScreen mainScreen;
-  final AppLocalizationsDataNoteScreen noteScreen;
+  final AppLocalizationsDataMainApp mainApp;
   final AppLocalizationsDataRegistrationScreen registrationScreen;
   final AppLocalizationsDataLoginScreen loginScreen;
   factory AppLocalizationsData.fromJson(Map<String, Object?> map) =>
       AppLocalizationsData(
-        mainScreen: AppLocalizationsDataMainScreen.fromJson(
-            map['mainScreen']! as Map<String, Object?>),
-        noteScreen: AppLocalizationsDataNoteScreen.fromJson(
-            map['noteScreen']! as Map<String, Object?>),
+        mainApp: AppLocalizationsDataMainApp.fromJson(
+            map['mainApp']! as Map<String, Object?>),
         registrationScreen: AppLocalizationsDataRegistrationScreen.fromJson(
             map['registrationScreen']! as Map<String, Object?>),
         loginScreen: AppLocalizationsDataLoginScreen.fromJson(
@@ -108,14 +84,12 @@ class AppLocalizationsData {
       );
 
   AppLocalizationsData copyWith({
-    AppLocalizationsDataMainScreen? mainScreen,
-    AppLocalizationsDataNoteScreen? noteScreen,
+    AppLocalizationsDataMainApp? mainApp,
     AppLocalizationsDataRegistrationScreen? registrationScreen,
     AppLocalizationsDataLoginScreen? loginScreen,
   }) =>
       AppLocalizationsData(
-        mainScreen: mainScreen ?? this.mainScreen,
-        noteScreen: noteScreen ?? this.noteScreen,
+        mainApp: mainApp ?? this.mainApp,
         registrationScreen: registrationScreen ?? this.registrationScreen,
         loginScreen: loginScreen ?? this.loginScreen,
       );
@@ -124,166 +98,86 @@ class AppLocalizationsData {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AppLocalizationsData &&
-          mainScreen == other.mainScreen &&
-          noteScreen == other.noteScreen &&
+          mainApp == other.mainApp &&
           registrationScreen == other.registrationScreen &&
           loginScreen == other.loginScreen);
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      mainScreen.hashCode ^
-      noteScreen.hashCode ^
+      mainApp.hashCode ^
       registrationScreen.hashCode ^
       loginScreen.hashCode;
 }
 
-class AppLocalizationsDataMainScreen {
-  const AppLocalizationsDataMainScreen({
-    required this.favorite,
-    required this.all,
-    required this.noNotes,
-    required this.darkTheme,
-    required this.myNotes,
+class AppLocalizationsDataMainApp {
+  const AppLocalizationsDataMainApp({
+    required this.delete,
+    required this.edit,
+    required this.settings,
+    required this.chats,
+    required this.contacts,
     required this.logout,
-    required this.text,
-    required this.mainScreen,
+    required this.darkTheme,
   });
 
-  final String favorite;
-  final String all;
-  final String noNotes;
-  final String darkTheme;
-  final String myNotes;
+  final String delete;
+  final String edit;
+  final String settings;
+  final String chats;
+  final String contacts;
   final String logout;
-  final String text;
-  final String mainScreen;
-  factory AppLocalizationsDataMainScreen.fromJson(Map<String, Object?> map) =>
-      AppLocalizationsDataMainScreen(
-        favorite: map['favorite']! as String,
-        all: map['all']! as String,
-        noNotes: map['noNotes']! as String,
-        darkTheme: map['darkTheme']! as String,
-        myNotes: map['myNotes']! as String,
+  final String darkTheme;
+  factory AppLocalizationsDataMainApp.fromJson(Map<String, Object?> map) =>
+      AppLocalizationsDataMainApp(
+        delete: map['delete']! as String,
+        edit: map['edit']! as String,
+        settings: map['settings']! as String,
+        chats: map['chats']! as String,
+        contacts: map['contacts']! as String,
         logout: map['logout']! as String,
-        text: map['text']! as String,
-        mainScreen: map['mainScreen']! as String,
+        darkTheme: map['darkTheme']! as String,
       );
 
-  AppLocalizationsDataMainScreen copyWith({
-    String? favorite,
-    String? all,
-    String? noNotes,
-    String? darkTheme,
-    String? myNotes,
+  AppLocalizationsDataMainApp copyWith({
+    String? delete,
+    String? edit,
+    String? settings,
+    String? chats,
+    String? contacts,
     String? logout,
-    String? text,
-    String? mainScreen,
+    String? darkTheme,
   }) =>
-      AppLocalizationsDataMainScreen(
-        favorite: favorite ?? this.favorite,
-        all: all ?? this.all,
-        noNotes: noNotes ?? this.noNotes,
-        darkTheme: darkTheme ?? this.darkTheme,
-        myNotes: myNotes ?? this.myNotes,
+      AppLocalizationsDataMainApp(
+        delete: delete ?? this.delete,
+        edit: edit ?? this.edit,
+        settings: settings ?? this.settings,
+        chats: chats ?? this.chats,
+        contacts: contacts ?? this.contacts,
         logout: logout ?? this.logout,
-        text: text ?? this.text,
-        mainScreen: mainScreen ?? this.mainScreen,
+        darkTheme: darkTheme ?? this.darkTheme,
       );
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is AppLocalizationsDataMainScreen &&
-          favorite == other.favorite &&
-          all == other.all &&
-          noNotes == other.noNotes &&
-          darkTheme == other.darkTheme &&
-          myNotes == other.myNotes &&
+      (other is AppLocalizationsDataMainApp &&
+          delete == other.delete &&
+          edit == other.edit &&
+          settings == other.settings &&
+          chats == other.chats &&
+          contacts == other.contacts &&
           logout == other.logout &&
-          text == other.text &&
-          mainScreen == other.mainScreen);
+          darkTheme == other.darkTheme);
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      favorite.hashCode ^
-      all.hashCode ^
-      noNotes.hashCode ^
-      darkTheme.hashCode ^
-      myNotes.hashCode ^
+      delete.hashCode ^
+      edit.hashCode ^
+      settings.hashCode ^
+      chats.hashCode ^
+      contacts.hashCode ^
       logout.hashCode ^
-      text.hashCode ^
-      mainScreen.hashCode;
-}
-
-class AppLocalizationsDataNoteScreen {
-  const AppLocalizationsDataNoteScreen({
-    required this.no,
-    required this.yes,
-    required this.doYouWantSave,
-    required this.descriptionRequired,
-    required this.description,
-    required this.title,
-    required this.titleRequired,
-  });
-
-  final String no;
-  final String yes;
-  final String doYouWantSave;
-  final String descriptionRequired;
-  final String description;
-  final String title;
-  final String titleRequired;
-  factory AppLocalizationsDataNoteScreen.fromJson(Map<String, Object?> map) =>
-      AppLocalizationsDataNoteScreen(
-        no: map['no']! as String,
-        yes: map['yes']! as String,
-        doYouWantSave: map['doYouWantSave']! as String,
-        descriptionRequired: map['descriptionRequired']! as String,
-        description: map['description']! as String,
-        title: map['title']! as String,
-        titleRequired: map['titleRequired']! as String,
-      );
-
-  AppLocalizationsDataNoteScreen copyWith({
-    String? no,
-    String? yes,
-    String? doYouWantSave,
-    String? descriptionRequired,
-    String? description,
-    String? title,
-    String? titleRequired,
-  }) =>
-      AppLocalizationsDataNoteScreen(
-        no: no ?? this.no,
-        yes: yes ?? this.yes,
-        doYouWantSave: doYouWantSave ?? this.doYouWantSave,
-        descriptionRequired: descriptionRequired ?? this.descriptionRequired,
-        description: description ?? this.description,
-        title: title ?? this.title,
-        titleRequired: titleRequired ?? this.titleRequired,
-      );
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is AppLocalizationsDataNoteScreen &&
-          no == other.no &&
-          yes == other.yes &&
-          doYouWantSave == other.doYouWantSave &&
-          descriptionRequired == other.descriptionRequired &&
-          description == other.description &&
-          title == other.title &&
-          titleRequired == other.titleRequired);
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      no.hashCode ^
-      yes.hashCode ^
-      doYouWantSave.hashCode ^
-      descriptionRequired.hashCode ^
-      description.hashCode ^
-      title.hashCode ^
-      titleRequired.hashCode;
+      darkTheme.hashCode;
 }
 
 class AppLocalizationsDataRegistrationScreen {

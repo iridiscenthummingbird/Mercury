@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mercury/localization/localization.dart';
 import 'package:mercury/models/message.dart';
 
 import 'triangle_clippers.dart';
@@ -49,13 +50,13 @@ class MessageWidget extends StatelessWidget {
                 }
               },
               itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
-                const PopupMenuItem<Menu>(
+                PopupMenuItem<Menu>(
                   value: Menu.edit,
-                  child: Text('Edit'),
+                  child: Text(AppLocalizations.of(context).mainApp.edit),
                 ),
-                const PopupMenuItem<Menu>(
+                PopupMenuItem<Menu>(
                   value: Menu.delete,
-                  child: Text('Delete'),
+                  child: Text(AppLocalizations.of(context).mainApp.delete),
                 ),
               ],
               child: Container(
@@ -139,9 +140,9 @@ class MessageWidget extends StatelessWidget {
                         }
                       },
                       itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
-                        const PopupMenuItem<Menu>(
+                        PopupMenuItem<Menu>(
                           value: Menu.delete,
-                          child: Text('Delete'),
+                          child: Text(AppLocalizations.of(context).mainApp.delete),
                         ),
                       ],
                       child: CachedNetworkImage(

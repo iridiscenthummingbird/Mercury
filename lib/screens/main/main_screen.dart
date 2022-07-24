@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mercury/localization/localization.dart';
 import 'package:mercury/screens/group_chat_creation/group_chat_creation.dart';
 import 'package:mercury/screens/main/tabs/chats/chats_tab.dart';
 import 'package:mercury/screens/main/tabs/contacts/contacts_tab.dart';
@@ -31,11 +32,11 @@ class _MainScreenState extends State<MainScreen> {
   String getTitle(BuildContext context) {
     switch (_selectedIndex) {
       case 0:
-        return 'Contacts';
+        return AppLocalizations.of(context).mainApp.contacts;
       case 1:
-        return 'Chats';
+        return AppLocalizations.of(context).mainApp.chats;
       case 2:
-        return 'Settings';
+        return AppLocalizations.of(context).mainApp.settings;
       default:
         return '';
     }
@@ -69,18 +70,18 @@ class _MainScreenState extends State<MainScreen> {
         unselectedItemColor: Theme.of(context).iconTheme.color!.withOpacity(0.4),
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Contacts',
+            icon: const Icon(Icons.account_circle),
+            label: AppLocalizations.of(context).mainApp.contacts,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble),
-            label: 'Chats',
+            icon: const Icon(Icons.chat_bubble),
+            label: AppLocalizations.of(context).mainApp.chats,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: const Icon(Icons.settings),
+            label: AppLocalizations.of(context).mainApp.settings,
           ),
         ],
       ),
