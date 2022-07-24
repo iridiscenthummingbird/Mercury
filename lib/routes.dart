@@ -13,13 +13,13 @@ Route<dynamic> _generateRoute(RouteSettings settings) {
         settings: settings,
         builder: (BuildContext context) => const LoginScreen(),
       );
-    // case NoteScreen.routeName:
-    //   return MaterialPageRoute<bool>(
-    //     settings: settings,
-    //     builder: (BuildContext context) => NoteScreen(
-    //       note: settings.arguments as Note?,
-    //     ),
-    //   );
+    case ChatScreen.routeName:
+      return MaterialPageRoute<dynamic>(
+        settings: settings,
+        builder: (BuildContext context) => ChatScreen(
+          chatScreenSettings: settings.arguments as ChatScreenSettings,
+        ),
+      );
     case RegistrationScreen.routeName:
       return MaterialPageRoute<dynamic>(
         settings: settings,

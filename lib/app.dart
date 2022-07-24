@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mercury/di.dart';
 import 'package:mercury/localization/localization.dart';
 import 'package:mercury/managers/shared_preference_manager_impl.dart';
+import 'package:mercury/screens/chat/chat_screen.dart';
 import 'package:mercury/screens/login/login_screen.dart';
 import 'package:mercury/screens/main/main_screen.dart';
 import 'package:mercury/screens/registration/registration_screen.dart';

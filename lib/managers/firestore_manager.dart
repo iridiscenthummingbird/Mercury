@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mercury/models/chat.dart';
 import 'package:mercury/models/user.dart';
 import 'package:mercury/utils/enums.dart';
 
@@ -18,6 +19,8 @@ abstract class FireStoreManager {
   Future<void> editMessage(String text, String id);
 
   Future<String> createChat(List<String> participantsIdList, ChatType chatType);
+
+  Future<Chat> getChat(String id);
 }
 
 class FireStoreManagerImpl implements FireStoreManager {
@@ -61,8 +64,13 @@ class FireStoreManagerImpl implements FireStoreManager {
 
   @override
   Stream<QuerySnapshot<Object?>> listenMessages(String chatId) {
-    final Stream<QuerySnapshot> messagesStream =
-        messagesCollection.where('chatId', arrayContains: chatId).orderBy('createTime').snapshots();
+    final Stream<QuerySnapshot> messagesStream = messagesCollection
+        .where(
+          'chatId',
+          isEqualTo: chatId,
+        )
+        .orderBy('createTime')
+        .snapshots();
     return messagesStream;
   }
 
@@ -96,6 +104,26 @@ class FireStoreManagerImpl implements FireStoreManager {
 
   @override
   Future<String> createChat(List<String> participantsIdList, ChatType chatType) async {
+    if (chatType == ChatType.private) {
+      final result = await chatsCollection
+          .where('participantsIdList', arrayContains: participantsIdList[0])
+          .where('chatType', isEqualTo: 'private')
+          .get();
+      if (result.docs.isNotEmpty) {
+        for (final item in result.docs) {
+          final Map<String, dynamic> data = item.data()! as Map<String, dynamic>;
+          final List<String> ids = (data['participantsIdList'] as List<dynamic>)
+              .map(
+                (dynamic item) => item as String,
+              )
+              .toList();
+          if (ids.contains(participantsIdList[1])) {
+            return item.id;
+          }
+        }
+      }
+    }
+
     final List<String> names = [];
     for (final id in participantsIdList) {
       final QuerySnapshot<Object?> snapshot = await usersCollection.where('id', isEqualTo: id).get();
@@ -113,5 +141,25 @@ class FireStoreManagerImpl implements FireStoreManager {
       },
     );
     return doc.id;
+  }
+
+  @override
+  Future<Chat> getChat(String id) async {
+    final DocumentSnapshot<Object?> snapshot = await chatsCollection.doc(id).get();
+
+    final Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+    final List<String> ids = (data['participantsIdList'] as List<dynamic>)
+        .map(
+          (dynamic item) => item as String,
+        )
+        .toList();
+    return Chat(
+      id: id,
+      chatType: chatTypeMapper.toEnum(data['chatType'] as String),
+      participants: ids,
+      updateTime: (data['updateTime'] as Timestamp).toDate(),
+      name: data['name'] as String,
+    );
   }
 }

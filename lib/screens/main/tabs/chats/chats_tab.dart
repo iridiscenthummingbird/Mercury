@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mercury/models/chat.dart';
+import 'package:mercury/screens/chat/chat_screen.dart';
+import 'package:mercury/screens/chat/cubit/chat_cubit.dart';
 import 'package:mercury/screens/main/tabs/chats/cubit/chats_cubit.dart';
 import 'package:mercury/utils/enums.dart';
 
@@ -73,7 +75,16 @@ class _ChatsTabState extends State<ChatsTab> {
                   itemCount: chats.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          ChatScreen.routeName,
+                          arguments: ChatScreenSettings(
+                            openChatType: OpenChatType.chatScreen,
+                            chatId: chats[index].id,
+                          ),
+                        );
+                      },
                       title: Text(chats[index].name),
                       trailing: Text(formatDate(chats[index].updateTime)),
                     );

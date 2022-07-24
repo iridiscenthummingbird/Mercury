@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mercury/screens/chat/chat_screen.dart';
+import 'package:mercury/screens/chat/cubit/chat_cubit.dart';
 
 import '../models/user.dart';
 
@@ -32,7 +34,16 @@ class ContactTile extends StatelessWidget {
           fontWeight: FontWeight.normal,
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          ChatScreen.routeName,
+          arguments: ChatScreenSettings(
+            companionId: user.id,
+            openChatType: OpenChatType.contactScreen,
+          ),
+        );
+      },
     );
   }
 }
