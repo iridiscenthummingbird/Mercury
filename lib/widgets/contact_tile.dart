@@ -15,6 +15,9 @@ class ContactTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       leading: CircleAvatar(
         backgroundColor: Colors.white,
         child: Text(
