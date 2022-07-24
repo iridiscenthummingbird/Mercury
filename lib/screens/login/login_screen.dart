@@ -93,7 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(20),
                               child: Ink(
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: Theme.of(context).iconTheme.color!),
+                                  border: Border.all(
+                                    color: Theme.of(context).textTheme.bodyText1!.color!,
+                                  ),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 child: Center(
