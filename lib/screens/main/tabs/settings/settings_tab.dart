@@ -36,11 +36,19 @@ class _SettingsTabState extends State<SettingsTab> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.logout),
+                  Icon(
+                    Icons.logout,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(AppLocalizations.of(context).mainApp.logout),
+                  Text(
+                    AppLocalizations.of(context).mainApp.logout,
+                    style: TextStyle(
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                  ),
                 ],
               ),
             ),

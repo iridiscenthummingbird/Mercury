@@ -81,10 +81,7 @@ class MessageWidget extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 16.0),
                         child: Text(
                           textMessage.text,
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColorDark,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       const SizedBox(
@@ -93,10 +90,7 @@ class MessageWidget extends StatelessWidget {
                       Text(
                         formatterTime.format(message.createTime),
                         textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColorDark,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText2,
                       ),
                     ],
                   ),

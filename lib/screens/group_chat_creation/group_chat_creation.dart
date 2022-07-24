@@ -63,6 +63,7 @@ class _GroupChatCreationScreenState extends State<GroupChatCreationScreen> {
             checkListValues = List.generate(contacts.length, (index) => false);
             return Scaffold(
               appBar: AppBar(
+                foregroundColor: Theme.of(context).iconTheme.color,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 actions: [

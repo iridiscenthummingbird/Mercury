@@ -153,6 +153,15 @@ class _ChatScreenState extends State<ChatScreen> {
                               width: 260,
                               child: TextFormField(
                                 controller: controller,
+                                decoration: InputDecoration(
+                                  fillColor: Theme.of(context).iconTheme.color,
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Theme.of(context).iconTheme.color!,
+                                    ),
+                                  ),
+                                ),
+                                cursorColor: Theme.of(context).iconTheme.color,
                               ),
                             ),
                             IconButton(
