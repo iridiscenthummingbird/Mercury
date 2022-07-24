@@ -10,7 +10,16 @@ class EmailField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      cursorColor: Theme.of(context).textTheme.bodyText1!.color!,
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).textTheme.bodyText1!.color!,
+          ),
+        ),
+        labelStyle: TextStyle(
+          color: Theme.of(context).textTheme.bodyText1!.color!,
+        ),
         labelText: AppLocalizations.of(context).loginScreen.email,
       ),
       validator: (input) {

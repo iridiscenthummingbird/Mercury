@@ -11,7 +11,16 @@ class PasswordField extends StatelessWidget {
       controller: controller,
       obscuringCharacter: '*',
       obscureText: true,
+      cursorColor: Theme.of(context).textTheme.bodyText1!.color!,
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).textTheme.bodyText1!.color!,
+          ),
+        ),
+        labelStyle: TextStyle(
+          color: Theme.of(context).textTheme.bodyText1!.color!,
+        ),
         labelText: AppLocalizations.of(context).loginScreen.password,
       ),
       validator: (input) {
