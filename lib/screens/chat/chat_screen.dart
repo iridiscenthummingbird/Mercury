@@ -39,6 +39,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final TextEditingController controller = TextEditingController();
 
+  bool isEditMode = false;
+  String editMessageId = '';
+
   List<Message> getMessages(AsyncSnapshot<QuerySnapshot> snapshot) {
     return (snapshot.data?.docs ?? []).map(
       (DocumentSnapshot document) {
@@ -114,6 +117,11 @@ class _ChatScreenState extends State<ChatScreen> {
                                 delete: () async {
                                   await _cubit.deleteMessage(messages[index].id);
                                 },
+                                edit: (value, id) {
+                                  controller.text = value;
+                                  editMessageId = id;
+                                  isEditMode = true;
+                                },
                               );
                             },
                           );
@@ -150,7 +158,12 @@ class _ChatScreenState extends State<ChatScreen> {
                             IconButton(
                               onPressed: () async {
                                 if (controller.text.trim().isNotEmpty) {
-                                  await _cubit.sendTextMessage(controller.text.trim(), chat.id);
+                                  if (isEditMode) {
+                                    isEditMode = false;
+                                    await _cubit.editMessage(controller.text.trim(), editMessageId);
+                                  } else {
+                                    await _cubit.sendTextMessage(controller.text.trim(), chat.id);
+                                  }
                                   controller.clear();
                                 }
                               },

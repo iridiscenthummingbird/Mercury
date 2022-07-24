@@ -6,18 +6,20 @@ import 'package:mercury/models/message.dart';
 
 import 'triangle_clippers.dart';
 
-enum Menu { delete }
+enum Menu { edit, delete }
 
 class MessageWidget extends StatelessWidget {
   MessageWidget({
     Key? key,
     required this.message,
     required this.delete,
+    required this.edit,
   }) : super(key: key);
 
   final Message message;
   final DateFormat formatterTime = DateFormat('kk:mm');
   final Function() delete;
+  final Function(String, String) edit;
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +44,15 @@ class MessageWidget extends StatelessWidget {
               onSelected: (Menu item) async {
                 if (item == Menu.delete) {
                   await delete();
+                } else if (item == Menu.edit) {
+                  edit(textMessage.text, textMessage.id);
                 }
               },
               itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+                const PopupMenuItem<Menu>(
+                  value: Menu.edit,
+                  child: Text('Edit'),
+                ),
                 const PopupMenuItem<Menu>(
                   value: Menu.delete,
                   child: Text('Delete'),

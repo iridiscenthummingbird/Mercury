@@ -44,4 +44,8 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> sendImageMessage(XFile xfile, String chatId) async {
     await messageRepository.sendImageMessage(xfile, chatId);
   }
+
+  Future<void> editMessage(String text, String id) async {
+    await messageRepository.editMessage(text, id);
+  }
 }
